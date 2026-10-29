@@ -128,3 +128,15 @@ Copy `.env.example` to `.env` to get started.
 - **Rate limiting:** Backend enforces 30 requests/60 seconds per IP via slowapi.
 - **Taiwan vs US stocks:** `market_type` parameter controls which data sources are used. FinMind is used for Taiwan (`tw`), Yahoo Finance + Alpha Vantage for US.
 - The `tradingagents/` package is installed as an editable package (`pip install -e .`); import as `from tradingagents.graph import ...`.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Build or refresh it (offline, ~1 min): `pip install graphifyy && GRAPHIFY_BACKEND=none graphify update .`. Only `GRAPH_REPORT.md` is committed; `graph.json`/`graph.html` are regenerated locally.
+
+Rules:
+- When graphify-out/graph.json exists, run `graphify query "<question>"` before your first grep, search or source-file read for a codebase question, and put this rule in every subagent prompt that explores code. Read raw files only for lines the graph or an earlier read already located. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
