@@ -1,0 +1,6 @@
+# Agent skills and generated assets are not product code
+.claude/
+web_screenshot/
+llm_logo/
+assets/
+report/
